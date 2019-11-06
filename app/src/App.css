@@ -1,0 +1,30 @@
+.App {
+  text-align: center;
+}
+
+.Landing_page-container {
+  position: relative;
+  width: 100%;
+}
+
+.Landing_page-body {
+  width: 500px;
+  margin: auto;
+}
+
+tr {
+  text-align: left;
+}
+
+td:nth-child(even) {
+  width: 500px;
+  padding-left: 30px;
+}
+
+td:nth-child(odd){
+  width: 150px;
+}
+
+.ClientDetails {
+  margin-bottom: 30px;
+}
