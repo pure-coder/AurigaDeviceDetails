@@ -1,0 +1,2 @@
+"# DeviceDetails" 
+"# AurigaDeviceDetails" 
