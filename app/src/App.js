@@ -7,14 +7,14 @@ class App extends Component {
     render() {
         return (
             <Router>
-            <div className="App">
-            <Switch>
-            <Route exact path="/" component={Landing_page}/>
-        <Route component={ErrorComponent}/>
-        </Switch>
-        </div>
-        </Router>
-    );
+                <div className="App">
+                    <Switch>
+                        <Route exact path="/" component={Landing_page}/>
+                        <Route component={ErrorComponent}/>
+                    </Switch>
+                </div>
+            </Router>
+        );
     }
 }
 
