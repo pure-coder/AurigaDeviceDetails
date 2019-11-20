@@ -20,7 +20,7 @@ public class GetResource {
     private static final Logger log = LoggerFactory.getLogger(GetResource.class);
 
     // Only one instance of mapper needed so should have created this as local to whole object (Global)
-    ObjectMapper mapper = new ObjectMapper();
+    private ObjectMapper mapper = new ObjectMapper();
 
     // Get json data from external URL
     public String getResource() {
@@ -51,9 +51,9 @@ public class GetResource {
     // Used methods to break up functionality for readability and testing.
 
     // Get the object from json array.
-    public ArrayList<String> responseToJSON(String response) {
+    public DeviceData responseToJSON(String response) {
         // Create Array list to add device data too.
-        ArrayList<String> deviceDataArray = new ArrayList<>();
+        //ArrayList<String> deviceDataArray = new ArrayList<>();
 
         // Get first object out of array, in test used for loop to get objects out of array,
         // thinking was for future if more than one device was listed in json response.
@@ -78,10 +78,10 @@ public class GetResource {
 
                         // Deserialization of json into object so that it can be manipulated/modified
                         // into useful data that client needs
-                        DeviceData deviceData = mapper.readValue(currentDeviceValue, DeviceData.class);
+                        return mapper.readValue(currentDeviceValue, DeviceData.class);
 
                         // Add specified serialized device details to array list
-                        deviceDataArray.add(mapper.writeValueAsString(deviceData));
+                        //deviceDataArray.add(mapper.writeValueAsString(deviceData));
                     }
                     catch (JSONException | IOException err) {
                         log.info(err.toString());
@@ -91,9 +91,10 @@ public class GetResource {
         }
         catch (JSONException err){
             System.out.println("err: " + err.toString());
-            return (ArrayList) Collections.emptyList();
+            //return (ArrayList) Collections.emptyList();
         }
-        return deviceDataArray;
+        //return deviceDataArray;
+        return null;
     }
 
 

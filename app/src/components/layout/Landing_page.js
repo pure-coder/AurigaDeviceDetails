@@ -9,9 +9,13 @@ class Landing_page extends Component {
 
     // Get the requested data for device details from Java REST API
     async componentDidMount() {
-        const response = await fetch('/client_response');
-        const jsonBody = await response.json();
-        this.setState({clientDetails: jsonBody, isLoading: false});
+        try {
+            const response = await fetch('/client_response');
+            const jsonBody = await response.json();
+            this.setState({clientDetails: jsonBody, isLoading: false});
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     render() {
@@ -22,9 +26,12 @@ class Landing_page extends Component {
             return <p>Loading...</p>;
         }
 
-        const content = clientDetails.map(details => (
-            <table key={details.name} className="ClientDetails">
-                <tbody>
+        let content;
+
+        if (Array.isArray(clientDetails)) {
+            content = clientDetails.map(details => (
+                <table key={details.name} className="ClientDetails">
+                    <tbody>
                     <tr>
                         <td>Name:</td>
                         <td>{details.name}</td>
@@ -61,10 +68,54 @@ class Landing_page extends Component {
                         <td>IP Addresses:</td>
                         <td>{details.ipAddresses[0]}, {details.ipAddresses[1]}</td>
                     </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            ));
+        } else {
+            content = (
+                <table key={clientDetails.name} className="ClientDetails">
+                    <tbody>
+                    <tr>
+                        <td>Name:</td>
+                        <td>{clientDetails.name}</td>
+                    </tr>
+                    <tr>
+                        <td>Agent Version:</td>
+                        <td>{clientDetails.agentVersion}</td>
+                    </tr>
+                    <tr>
+                        <td>How Many Alerts:</td>
+                        <td>{clientDetails.howManyAlerts}</td>
+                    </tr>
+                    <tr>
+                        <td>Architecture:</td>
+                        <td>{clientDetails.architecture}</td>
+                    </tr>
+                    <tr>
+                        <td>Collector:</td>
+                        <td>{clientDetails.collector}</td>
+                    </tr>
+                    <tr>
+                        <td>CPU Model:</td>
+                        <td>{clientDetails.cpuModel}</td>
+                    </tr>
+                    <tr>
+                        <td>Description:</td>
+                        <td>{clientDetails.description}</td>
+                    </tr>
+                    <tr>
+                        <td>Discovery Date:</td>
+                        <td>{clientDetails.discoveryDate}</td>
+                    </tr>
+                    <tr>
+                        <td>IP Addresses:</td>
+                        <td>{clientDetails.ipAddresses[0]}, {clientDetails.ipAddresses[1]}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            );
+        }
 
-        ));
 
         // When data has been returned display data in table.
         return (
