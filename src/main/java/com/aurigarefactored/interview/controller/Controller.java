@@ -2,6 +2,7 @@ package com.aurigarefactored.interview.controller;
 
 import com.aurigarefactored.interview.get_resource.DeviceData;
 import com.aurigarefactored.interview.get_resource.GetResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ class Controller {
 
     // Get request from user for device details, call external url, send data back to user.
     @GetMapping(value="/client_response", produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeviceData clientResponse(){
+    public ResponseEntity<DeviceData> clientResponse(){
 
         // Get resource
         GetResource resource = new GetResource();
@@ -46,7 +47,7 @@ class Controller {
 
             // Return device data to client (UI)
             //return ResponseEntity.ok().body(clientResponse.toString());
-            return resource.responseToJSON(urlResponse);
+            return new ResponseEntity<>(resource.responseToJSON(urlResponse), HttpStatus.OK);
         }
         else{
             return null;
